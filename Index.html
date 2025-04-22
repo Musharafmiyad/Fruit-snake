@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 M2 Games - Fruit Snake Rush</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🎮 M2 Games - Fruit Snake Rush</h1>
+        
+        <div class="game-container">
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+            
+            <div class="info-panel">
+                <div class="score-container">
+                    <span>Score: </span>
+                    <span id="score">0</span>
+                </div>
+                <div class="controls-container">
+                    <button id="startBtn">Start</button>
+                    <button id="pauseBtn" disabled>Pause</button>
+                    <div class="sound-control">
+                        <label for="soundToggle">🔊:</label>
+                        <input type="checkbox" id="soundToggle" checked>
+                    </div>
+                    <div class="music-control">
+                        <label for="musicToggle">🎵:</label>
+                        <input type="checkbox" id="musicToggle">
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="mobile-controls">
+                <div class="control-row">
+                    <button id="upBtn" class="control-btn">⬆️</button>
+                </div>
+                <div class="control-row">
+                    <button id="leftBtn" class="control-btn">⬅️</button>
+                    <button id="downBtn" class="control-btn">⬇️</button>
+                    <button id="rightBtn" class="control-btn">➡️</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- High Score Board -->
+        <div class="high-score-container">
+            <h2 class="high-score-title">High Scores</h2>
+            <div class="high-score-board" id="highScoreBoard">
+                <!-- High scores will be added here dynamically -->
+            </div>
+        </div>
+        
+        <div id="gameOverModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" id="closeModal">&times;</span>
+                <h2>Game Over!</h2>
+                <p>Your score: <span id="finalScore">0</span></p>
+                <div class="name-input">
+                    <label for="playerName">Enter your name:</label>
+                    <input type="text" id="playerName" maxlength="15" placeholder="Your name">
+                </div>
+                <button id="saveScoreBtn">Save Score</button>
+                <button id="restartBtn">Play Again</button>
+            </div>
+        </div>
+        
+        <footer class="game-footer">
+            <div class="copyright">
+                
+                <span class="copyright-text">© 2025 Musharaf Miyad | All Rights Reserved</span>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>

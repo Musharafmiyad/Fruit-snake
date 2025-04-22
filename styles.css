@@ -1,0 +1,447 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(135deg, #1a0033, #330066);
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.2), transparent 70%);
+    animation: pulse 8s infinite alternate;
+    z-index: -1;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 0 10px #aa44ff, 0 0 20px #aa44ff, 0 0 30px #aa44ff;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #aa44ff, 0 0 20px #aa44ff;
+    }
+    to {
+        text-shadow: 0 0 15px #aa44ff, 0 0 25px #aa44ff, 0 0 35px #aa44ff;
+    }
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#gameCanvas {
+    background-color: #000;
+    border: 5px solid #aa44ff;
+    border-radius: 5px;
+    box-shadow: 0 0 20px #aa44ff;
+}
+
+.info-panel {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    margin-top: 15px;
+}
+
+.score-container {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffcc00;
+    text-shadow: 0 0 5px #aa44ff;
+}
+
+.controls-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#startBtn, #restartBtn, #saveScoreBtn {
+    background: linear-gradient(to right, #9900cc, #cc00ff);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(170, 68, 255, 0.7);
+}
+
+#startBtn:hover, #restartBtn:hover, #saveScoreBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(170, 68, 255, 0.9);
+}
+
+.sound-control, .music-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #bbbbbb;
+}
+
+.mobile-controls {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-row {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    background: rgba(170, 68, 255, 0.3);
+    border: 2px solid #aa44ff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+    background: rgba(170, 68, 255, 0.5);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #330066, #660099);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    border: 3px solid #aa44ff;
+    box-shadow: 0 0 30px #aa44ff;
+    animation: modalAppear 0.5s forwards;
+    position: relative;
+}
+
+@keyframes modalAppear {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal h2 {
+    color: #ff3333;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.modal p {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #ffcc00;
+}
+
+.name-input {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.name-input input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #aa44ff;
+    border-radius: 5px;
+    padding: 8px 12px;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    width: 100%;
+    text-align: center;
+}
+
+.name-input input:focus {
+    outline: none;
+    box-shadow: 0 0 10px #aa44ff;
+}
+
+/* High Score Board Styles */
+.high-score-container {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.high-score-title {
+    color: #ffcc00;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 5px rgba(255, 204, 0, 0.7);
+    letter-spacing: 1px;
+}
+
+.high-score-board {
+    width: 100%;
+}
+
+.high-score-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    transition: all 0.2s ease;
+}
+
+.high-score-row:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.high-score-row.header {
+    font-weight: bold;
+    color: #32db76;
+    border-bottom: 2px solid #32db76;
+    letter-spacing: 1px;
+}
+
+.high-score-row.empty {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.high-score-row.highlight {
+    background-color: rgba(50, 219, 118, 0.2);
+    animation: highlight 2s infinite alternate;
+}
+
+/* Top 3 styling */
+.high-score-row.top-1 {
+    font-weight: bold;
+    color: #ffd700; /* Gold */
+    font-size: 1.1em;
+}
+
+.high-score-row.top-2 {
+    font-weight: bold;
+    color: #c0c0c0; /* Silver */
+}
+
+.high-score-row.top-3 {
+    font-weight: bold;
+    color: #cd7f32; /* Bronze */
+}
+
+.medal {
+    display: inline-block;
+    font-size: 1.2em;
+    animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes highlight {
+    from { background-color: rgba(50, 219, 118, 0.2); }
+    to { background-color: rgba(50, 219, 118, 0.4); }
+}
+
+.high-score-row span {
+    flex: 1;
+    text-align: center;
+}
+
+.high-score-row span:nth-child(2) {
+    flex: 2;
+    text-align: left;
+}
+
+/* Top 3 ranks special styling */
+.high-score-entry.rank-1 {
+    background: rgba(255, 215, 0, 0.2);
+    border-left: 3px solid gold;
+}
+
+.high-score-entry.rank-2 {
+    background: rgba(192, 192, 192, 0.2);
+    border-left: 3px solid silver;
+}
+
+.high-score-entry.rank-3 {
+    background: rgba(205, 127, 50, 0.2);
+    border-left: 3px solid #cd7f32;
+}
+
+/* Game Footer */
+.game-footer {
+    margin-top: 30px;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid rgba(170, 68, 255, 0.3);
+}
+
+.copyright {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.trademark {
+    font-size: 1.5rem;
+    color: #ffcc00;
+    text-shadow: 0 0 5px rgba(255, 204, 0, 0.7);
+    position: relative;
+    top: -5px;
+    font-weight: bold;
+}
+
+.copyright-text {
+    font-size: 0.9rem;
+    color: #bbbbbb;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(170, 68, 255, 0.5);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #fff;
+}
+
+#pauseBtn {
+    margin-left: 5px;
+    padding: 8px 15px;
+    background-color: #4a4a4a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#pauseBtn:hover:not(:disabled) {
+    background-color: #666666;
+}
+
+#pauseBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .title {
+        font-size: 1.8rem;
+    }
+    
+    #gameCanvas {
+        width: 320px;
+        height: 320px;
+    }
+    
+    .info-panel, .high-score-container {
+        width: 320px;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .controls-container {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .control-btn {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .copyright {
+        flex-direction: column;
+        gap: 2px;
+    }
+    
+    .trademark {
+        font-size: 1.2rem;
+        top: 0;
+    }
+    
+    .copyright-text {
+        font-size: 0.8rem;
+    }
+}
