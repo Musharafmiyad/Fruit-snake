@@ -1,7 +1,7 @@
 // Game constants
 const CELL_SIZE = 20;
 const GRID_SIZE = 20; // 400px / 20px
-const GAME_SPEED = 150; // ms (increased from 120ms to slow down snake movement)
+const GAME_SPEED = 190; // ms (increased from 120ms to slow down snake movement)
 const FRUIT_TYPES = ['apple', 'banana', 'strawberry'];
 
 // Game variables
